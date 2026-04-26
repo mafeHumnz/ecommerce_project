@@ -1,5 +1,31 @@
 import mongoose from "mongoose";
 
+const addressSchema = new mongoose.Schema(
+  {
+    street: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    zipCode: {
+      type: String,
+      required: true
+    },
+    country: {
+      type: String,
+      required: true
+    },
+    esPrincipal: {
+      type: Boolean,
+      required: true
+    }
+
+  }
+);
+
 const userSchema = new mongoose.Schema(
   {
     nombre: {

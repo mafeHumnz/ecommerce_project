@@ -39,10 +39,8 @@ const orderSchema = new mongoose.Schema(
             enum: ["pending", "paid", "shipped", "delivered", "cancelled"],
             default: "pending"
         },
-        paymentMethod: String,
-        paymentId: String // ID que te da la pasarela (Stripe/PayPal)
-    },
-    { timestamps: true }
+        
+     timestamps: true }
 );
 
 export const Order = mongoose.model("Order", orderSchema);
