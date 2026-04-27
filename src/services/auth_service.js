@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import {user} from "../models/user.js"
 
 export const registerUserService = async ({nombre, email, password}) => {
-    
+
     if (!nombre || !email || !password) {
     throw new Error("Campos obligatorios faltantes");
   }
@@ -35,3 +35,4 @@ export const registerUserService = async ({nombre, email, password}) => {
   };
 
 };
+
