@@ -36,3 +36,34 @@ export const registerUserService = async ({nombre, email, password}) => {
 
 };
 
+export const loginUserService = async ({ email, password }) => {
+
+  if (!email || !password) {
+    throw new Error("Email y password son obligatorios");
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error("Credenciales inválidas");
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch) {
+    throw new Error("Credenciales inválidas");
+  }
+
+  const token = generateToken(user._id);
+
+  return {
+    user: {
+      id: user._id,
+      nombre: user.nombre,
+      email: user.email,
+      role: user.role
+    },
+    token
+  };
+};
+
