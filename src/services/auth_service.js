@@ -26,7 +26,6 @@ export const registerUserService = async ({nombre, email, password}) => {
     password: hashedPassword
   });
 
-  // ⚠️ nunca devuelvas password
   return {
     id: user._id,
     nombre: user.nombre,
