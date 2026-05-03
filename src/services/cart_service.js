@@ -64,3 +64,31 @@ export const removeItem = async (userId, productId) => {
     return updatedCart;
 
 };
+
+export const updateItem = async (userId, productId, quantity) => {
+
+    let shoppingCart = await getCart(userId);
+
+    const itemExistente = shoppingCart.items.find(item => item.product.toString() === productId);
+
+    if(!itemExistente){
+        throw new Error("Item no existe");
+    }
+
+    if (quantity < 0) {
+    throw new Error("Cantidad no válida");
+    }
+
+    if(quantity === 0){
+        return removeItem(userId, productId);
+    }
+
+    itemExistente.quantity = quantity;
+
+    await shoppingCart.save();
+
+    const updateCart = await Cart.findOne({user:userId}).populate("items.product");
+
+    return updateCart;
+
+};
