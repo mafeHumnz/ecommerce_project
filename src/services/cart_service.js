@@ -41,7 +41,26 @@ export const addItem = async (userId, productId, quantity) => {
 
     await shoppingCart.save();
 
-    const updateCart = await Cart.findOne({user:userId}).populate("items.product");
+    const updatedCart = await Cart.findOne({user:userId}).populate("items.product");
 
-    return updateCart;
+    return updatedCart;
+};
+
+export const removeItem = async (userId, productId) => {
+    let shoppingCart = await getCart(userId);
+
+    const itemExistente = shoppingCart.items.find(item => item.product.toString() === productId);
+    
+    if(!itemExistente){
+        throw new Error("Item no existe");
+    }
+
+    shoppingCart.items = shoppingCart.items.filter(item => item.product.toString() !== productId);
+
+    await shoppingCart.save();
+
+    const updatedCart = await Cart.findOne({user:userId}).populate("items.product");
+
+    return updatedCart;
+
 };
