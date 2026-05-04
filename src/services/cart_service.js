@@ -105,3 +105,20 @@ export const clearCart = async (userId) => {
     
     return updatedCart;
 };
+
+export const getCartTotal = async (userId) => {
+
+    let shoppingCart = await getCart(userId);
+
+    await shoppingCart.populate("items.product");
+
+    if (item.quantity < 0) {
+    throw new Error("Cantidad inválida");
+    }
+
+    const total = shoppingCart.items.reduce((acc, item) => {
+        return acc + ((item.product?.price || 0) * item.quantity);
+    }, 0);
+
+    return total;
+};
