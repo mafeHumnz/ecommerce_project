@@ -27,3 +27,10 @@ export const createCategory = async (name, slug, description) => {
 
     return category;
 };
+
+export const getCategories = async () => {
+    
+    const categories = await Category.find();
+
+    return categories;
+};
