@@ -1,5 +1,5 @@
-import { getCart, clearCart } from "./cart_service";
-import { Order } from "../models/order";
+import { getCart, clearCart } from "./cart_service.js";
+import { Order } from "../models/order.js";
 
 export const createOrder = async (userId) => {
 

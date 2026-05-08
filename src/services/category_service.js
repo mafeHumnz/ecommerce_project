@@ -1,0 +1,29 @@
+import {Category} from "../models/category.js";
+
+export const createCategory = async (name, slug, description) => {
+
+    if (!name || typeof name !== "string"){
+        throw new Error("El nombre es obligatorio y debe ser un texto");
+    }
+
+    const normalizedName = name.trim().toLowerCase();
+
+    if (normalizedName === "") {
+    throw new Error("El nombre no puede estar vacío");
+    }
+
+    const existingCategory = await Category.findOne({name:normalizedName});
+
+    if(existingCategory){
+        throw new Error("Esta categoria ya existe");
+    }
+
+    const category = await Category.create({
+        name: normalizedName,
+        slug: slug,
+        description: description,
+        isActive: true
+    }) 
+
+    return category;
+};
