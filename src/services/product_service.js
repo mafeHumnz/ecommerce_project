@@ -31,3 +31,14 @@ export const getProducts = async () => {
 
     return products;
 };
+
+export const getProductById = async (id) => {
+    
+    const product = await Product.findById(id).populate("category");
+
+    if (!product) {
+        throw new Error("Producto no encontrado");
+    }
+    
+    return product;
+};
