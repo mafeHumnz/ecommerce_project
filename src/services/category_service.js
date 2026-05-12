@@ -45,3 +45,20 @@ export const getCategoryById = async (id) => {
     
     return category;
 };
+
+export const updateCategory = async (id, name, slug, description) => {
+    
+    const category = await Category.findByIdAndUpdate(id, {
+        name: name,
+        slug: slug,
+        description: description
+    }, {new: true});
+
+    if (!category) {
+        throw new Error("Categoría no encontrada");
+    }
+
+    return category;
+};
+
+
