@@ -26,3 +26,8 @@ export const createProduct = async ({ name, description, price, stock, image, ca
     return product;
 };
 
+export const getProducts = async () => {
+    const products = await Product.find({isActive:true}).populate("category");
+
+    return products;
+};
