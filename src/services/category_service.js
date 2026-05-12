@@ -47,9 +47,25 @@ export const getCategoryById = async (id) => {
 };
 
 export const updateCategory = async (id, name, slug, description) => {
+
+    if (!name || typeof name !== "string"){
+        throw new Error("El nombre es obligatorio y debe ser un texto");
+    }
+
+    const normalizedName = name.trim().toLowerCase();
+
+    if (normalizedName === "") {
+    throw new Error("El nombre no puede estar vacío");
+    }
+
+    const existingCategory = await Category.findOne({name:normalizedName});
+
+    if(existingCategory && existingCategory._id.toString() !== id){
+        throw new Error("Esta categoria ya existe");
+    }
     
     const category = await Category.findByIdAndUpdate(id, {
-        name: name,
+        name: normalizedName,
         slug: slug,
         description: description
     }, {new: true});
