@@ -13,6 +13,16 @@ export const createProduct = async ({ name, description, price, stock, image, ca
         throw new Error("El stock es obligatorio y debe ser un número positivo");
     }
 
+    const categoryExists = await Category.findById(category);
+
+    if (!categoryExists) {
+        throw new Error("Categoría no encontrada");
+    }
+
+    if(!categoryExists.isActive){
+        throw new Error("La categoría no está activa");
+    }
+
     const product = await Product.create({
         name: name.trim(),
         description,
