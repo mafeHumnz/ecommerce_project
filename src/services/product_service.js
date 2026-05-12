@@ -44,7 +44,7 @@ export const getProducts = async () => {
 
 export const getProductById = async (id) => {
     
-    const product = await Product.findById(id).populate("category");
+    const product = await Product.findOne({_id:id, isActive:true}).populate("category");
 
     if (!product) {
         throw new Error("Producto no encontrado");
