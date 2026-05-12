@@ -81,7 +81,19 @@ export const updateProduct = async (id, { name, description, price, stock, image
         product.image = image;
     }
 
+    
+
     if (category) {
+        const categoryExists = await Category.findById(category);
+
+        if (!categoryExists) {
+            throw new Error("Categoría no encontrada");
+        }
+
+        if (!categoryExists.isActive) {
+            throw new Error("La categoría no está activa");
+        }
+
         product.category = category;
     }
 
