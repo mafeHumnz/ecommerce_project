@@ -30,7 +30,7 @@ export const createCategory = async (name, slug, description) => {
 
 export const getCategories = async () => {
     
-    const categories = await Category.find();
+    const categories = await Category.find({isActive:true});
 
     return categories;
 };
@@ -79,11 +79,15 @@ export const updateCategory = async (id, name, slug, description) => {
 
 export const deleteCategory = async (id) => {
     
-    const category = await Category.findByIdAndDelete(id);
+    const category = await Category.findById(id);
 
     if (!category) {
         throw new Error("Categoría no encontrada");
     }
+
+    category.isActive = false;
+
+    await category.save();
 
     return category;
 };
