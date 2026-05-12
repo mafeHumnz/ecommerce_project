@@ -83,3 +83,18 @@ export const updateProduct = async (id, { name, description, price, stock, image
 
     return product;
 };
+
+export const deleteProduct = async (id) => {
+    
+    const product = await Product.findById(id);
+
+    if (!product) {
+        throw new Error("Producto no encontrado");
+    }
+
+    product.isActive = false;
+
+    await product.save();
+
+    return product;
+};
