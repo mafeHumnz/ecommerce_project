@@ -34,3 +34,14 @@ export const getCategories = async () => {
 
     return categories;
 };
+
+export const getCategoryById = async (id) => {
+    
+    const category = await Category.findById(id);
+
+    if (!category) {
+        throw new Error("Categoría no encontrada");
+    }
+    
+    return category;
+};
