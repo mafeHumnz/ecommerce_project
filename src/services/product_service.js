@@ -42,3 +42,44 @@ export const getProductById = async (id) => {
     
     return product;
 };
+
+export const updateProduct = async (id, { name, description, price, stock, image, category, isActive }) => {
+
+    const product = await Product.findById(id);
+
+    if (!product) {
+        throw new Error("Producto no encontrado");
+    }
+
+    if (name && typeof name === "string") {
+        product.name = name.trim();
+    }
+
+    if (description) {
+        product.description = description;
+    }
+
+    if (price != null && typeof price === "number" && price >= 0) {
+        product.price = price;
+    }
+
+    if (stock != null && typeof stock === "number" && stock >= 0) {
+        product.stock = stock;
+    }
+
+    if (image) {
+        product.image = image;
+    }
+
+    if (category) {
+        product.category = category;
+    }
+
+    if (isActive !== undefined) {
+        product.isActive = isActive;
+    }
+
+    await product.save();
+
+    return product;
+};
