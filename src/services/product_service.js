@@ -53,7 +53,10 @@ export const getProductById = async (id) => {
     return product;
 };
 
-export const updateProduct = async (id, { name, description, price, stock, image, category, isActive }) => {
+export const updateProduct = async (
+    id,
+    { name, description, price, stock, image, category, isActive }
+) => {
 
     const product = await Product.findById(id);
 
@@ -61,29 +64,75 @@ export const updateProduct = async (id, { name, description, price, stock, image
         throw new Error("Producto no encontrado");
     }
 
-    if (name && typeof name === "string") {
-        product.name = name.trim();
+    // NAME
+    if (name !== undefined) {
+
+        if (typeof name !== "string") {
+            throw new Error("El nombre debe ser un texto");
+        }
+
+        const normalizedName = name.trim().toLowerCase();
+
+        if (normalizedName === "") {
+            throw new Error("El nombre no puede estar vacío");
+        }
+
+        const existingProduct = await Product.findOne({
+            name: normalizedName,
+            isActive: true
+        });
+
+        if (
+            existingProduct &&
+            existingProduct._id.toString() !== id
+        ) {
+            throw new Error("Ya existe un producto activo con este nombre");
+        }
+
+        product.name = normalizedName;
     }
 
-    if (description) {
+    // DESCRIPTION
+    if (description !== undefined) {
         product.description = description;
     }
 
-    if (price != null && typeof price === "number" && price >= 0) {
+    // PRICE
+    if (price !== undefined) {
+
+        if (
+            typeof price !== "number" ||
+            !Number.isFinite(price) ||
+            price < 0
+        ) {
+            throw new Error("El precio debe ser un número válido");
+        }
+
         product.price = price;
     }
 
-    if (stock != null && typeof stock === "number" && stock >= 0) {
+    // STOCK
+    if (stock !== undefined) {
+
+        if (
+            typeof stock !== "number" ||
+            !Number.isInteger(stock) ||
+            stock < 0
+        ) {
+            throw new Error("El stock debe ser un entero positivo");
+        }
+
         product.stock = stock;
     }
 
-    if (image) {
+    // IMAGE
+    if (image !== undefined) {
         product.image = image;
     }
 
-    
+    // CATEGORY
+    if (category !== undefined) {
 
-    if (category) {
         const categoryExists = await Category.findById(category);
 
         if (!categoryExists) {
@@ -97,13 +146,17 @@ export const updateProduct = async (id, { name, description, price, stock, image
         product.category = category;
     }
 
+    // IS ACTIVE
     if (isActive !== undefined) {
         product.isActive = isActive;
     }
 
     await product.save();
 
-    return product;
+    const updatedProduct = await Product.findById(product._id)
+        .populate("category", "name slug");
+
+    return updatedProduct;
 };
 
 export const deleteProduct = async (id) => {
