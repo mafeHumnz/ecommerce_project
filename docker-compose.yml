@@ -1,0 +1,25 @@
+services:
+  # Base de Datos (MongoDB)
+  mongo:
+    image: mongo:7 # Versión fija (más seguro que latest)
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db # Persistencia: tus datos no se borran
+
+  # Tu Aplicación (Node.js)
+  backend:
+    build: . # Construye la imagen desde tu Dockerfile
+    container_name: ecommerce_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo # Espera a que el servicio 'mongo' arranque
+    environment:
+      # IMPORTANTE: El host es 'mongo' porque coincide con el nombre del servicio arriba
+      - MONGO_URI=mongodb://mongo:27017/almacen
+
+# Definición de volúmenes para que Docker reserve el espacio en disco
+volumes:
+  mongo_data:
