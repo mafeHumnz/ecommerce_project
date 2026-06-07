@@ -11,6 +11,8 @@ services:
   # Tu Aplicación (Node.js)
   backend:
     build: . # Construye la imagen desde tu Dockerfile
+    env_file:
+      - .env
     container_name: ecommerce_app
     ports:
       - "3000:3000"

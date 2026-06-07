@@ -1,4 +1,5 @@
 import { Product } from "../models/product.js";
+import { Category } from "../models/category.js";
 
 export const createProduct = async ({ name, description, price, stock, image, category, isActive }) => {
     if (!name || typeof name !== "string") {
