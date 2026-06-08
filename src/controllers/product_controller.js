@@ -33,3 +33,47 @@ export const getProductsController = async (req, res) => {
             message: error.message });
     }
 };
+
+export const getProductByIdController = async (req, res) => {
+    
+    try {
+        const product = await getProductById(req.params.id);
+        res.status(200).json({
+            success: true,
+            data: product
+        });
+    } catch (error) {
+        res.status(404).json({ 
+            success: false,
+            message: error.message });
+    }
+};
+
+export const updateProductController = async (req, res) => {
+    try {
+        const product = await updateProduct(req.params.id, req.body);
+        res.status(200).json({
+            success: true,
+            message: "Producto actualizado exitosamente",
+            data: product
+        });
+    } catch (error) {
+        res.status(400).json({ 
+            success: false,
+            message: error.message });
+    }
+};
+
+export const deleteProductController = async (req, res) => {
+    try {
+        await deleteProduct(req.params.id);
+        res.status(200).json({
+            success: true,
+            message: "Producto eliminado exitosamente"
+        });
+    } catch (error) {
+        res.status(404).json({ 
+            success: false,
+            message: error.message });
+    }
+};
