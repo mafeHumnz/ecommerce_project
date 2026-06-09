@@ -21,7 +21,7 @@ export const protect = async (req, res, next) => {
     }
 
     // 2. Verificar token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
     // 3. Buscar usuario en BD
     const user = await User.findById(decoded.id).select("-password");
@@ -38,6 +38,9 @@ export const protect = async (req, res, next) => {
 
     next();
   } catch (error) {
+
+    console.error("ERROR JWT:", error);
+    
     return res.status(401).json({
       success: false,
       message: "Token inválido o expirado",
