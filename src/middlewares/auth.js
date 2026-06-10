@@ -8,3 +8,14 @@ export const isAdmin = (req, res, next) => {
     }
     next();
 };
+
+export const isUser = (req, res, next) => {
+
+    if (req.user.role !== "user") {
+
+       return res.status(403).json({ 
+        success: false,
+        message: "Acceso denegado. No eres un usuario." });
+    }
+    next();
+};
