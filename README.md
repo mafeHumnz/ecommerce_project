@@ -1,17 +1,14 @@
 # ecommerce_project
 
-ACTUAL: Pruebas de todos los endpoints carRoute
+ACTUAL: Probar funcionamiento del endpoint POST "/api/order/" (Crear pedido)
 
 ULTIMO PUNTO: 
 
-- Se verifico que un usuario pueda agregar productos a un carrito.
-- Se verifico que un usuario pueda eliminar un producto de un carrito.
-- Se verifico que un usuario pueda actualizar la cantidad de un producto en un carrito.
-- Se verifico que un usuario pueda limpiar un carrito.
+Se probo el funcionamiento del endpoint del flujo order (crear pedido)
 
 ERRORS:
 
-- No se detectaron errores.
+- TypeError: Invalid schema configuration: `true` is not a valid type at path `timestamps`
 
 FUNCIONALIDADES NUEVAS:
 
@@ -20,8 +17,8 @@ FUNCIONALIDADES NUEVAS:
 
 SIGUIENTE PASO:
 
-Crear flujo de ordenes (pedidos) para usuarios autenticados. Incluye:
+Crear flujo de pagos para usuarios autenticados. Incluye:
 
-- order_controller.js
-- order_route.js
-- Agregar app.use("/api/orders", orderRoute);
+- payment_controller.js
+- payment_route.js
+- Agregar app.use("/api/payment", paymentRoute);
