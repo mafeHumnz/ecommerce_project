@@ -1,14 +1,18 @@
 # ecommerce_project
 
-ACTUAL: Probar funcionamiento del endpoint POST "/api/order/" (Crear pedido)
+ACTUAL: Se verifico que todos los endpoints del flujo de pago funcionen correctamente.
 
 ULTIMO PUNTO: 
 
-Se probo el funcionamiento del endpoint del flujo order (crear pedido)
+Incluye:
+
+POST "/api/payments/" (Crear pago)
+POST "/api/payments/confirm" (Confirmar pago)
+POST "/api/payments/fail/:paymentId" (Notificar pago como fallido)
 
 ERRORS:
 
-- TypeError: Invalid schema configuration: `true` is not a valid type at path `timestamps`
+- "Payment validation failed: amount: Path `amount` is required."
 
 FUNCIONALIDADES NUEVAS:
 
@@ -17,8 +21,15 @@ FUNCIONALIDADES NUEVAS:
 
 SIGUIENTE PASO:
 
-Crear flujo de pagos para usuarios autenticados. Incluye:
 
-- payment_controller.js
-- payment_route.js
-- Agregar app.use("/api/payment", paymentRoute);
+Agregar estas validaciones con express-validator:
+
+- Auth
+- Category
+- Products
+- Cart
+- Orders
+- Payments
+
+
+

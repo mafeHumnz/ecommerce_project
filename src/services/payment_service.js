@@ -16,7 +16,7 @@ export const createPayment = async ({ orderId, userId, method }) => {
   const payment = await Payment.create({
     order: orderId,
     user: userId,
-    amount: order.total,
+    amount: order.totalAmount,
     method
   });
 
