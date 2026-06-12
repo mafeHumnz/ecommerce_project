@@ -1,12 +1,14 @@
 import {Category} from "../models/category.js";
 
-export const createCategory = async (name, slug, description) => {
+export const createCategory = async (name, description) => {
 
     if (!name || typeof name !== "string"){
         throw new Error("El nombre es obligatorio y debe ser un texto");
     }
 
     const normalizedName = name.trim().toLowerCase();
+
+    const slug = normalizedName.replace(/\s+/g, "-");
 
     if (normalizedName === "") {
     throw new Error("El nombre no puede estar vacío");
@@ -46,13 +48,15 @@ export const getCategoryById = async (id) => {
     return category;
 };
 
-export const updateCategory = async (id, name, slug, description) => {
+export const updateCategory = async (id, name, description) => {
 
     if (!name || typeof name !== "string"){
         throw new Error("El nombre es obligatorio y debe ser un texto");
     }
 
     const normalizedName = name.trim().toLowerCase();
+
+    const slug = normalizedName.replace(/\s+/g, "-");
 
     if (normalizedName === "") {
     throw new Error("El nombre no puede estar vacío");
