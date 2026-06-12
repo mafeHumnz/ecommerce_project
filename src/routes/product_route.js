@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { protect } from "../middlewares/jwt_protect.js";
-import {isAdmin} from "../middlewares/auth.js";
+import { protect } from "../middlewares/protect_middleware.js";
+import {isAdmin} from "../middlewares/auth_middleware.js";
 import { createProductController, getProductsController, getProductByIdController, updateProductController, deleteProductController } from "../controllers/product_controller.js";
 
 const router = Router();

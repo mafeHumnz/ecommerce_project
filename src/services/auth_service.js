@@ -2,9 +2,9 @@ import bcrypt from 'bcrypt';
 import {User} from "../models/user.js"
 import { generateToken } from "../utils/generateToken.js";
 
-export const registerUserService = async ({nombre, email, password}) => {
+export const registerUserService = async ({name, email, password}) => {
 
-    if (!nombre || !email || !password) {
+    if (!name || !email || !password) {
     throw new Error("Campos obligatorios faltantes");
   }
 
@@ -21,14 +21,14 @@ export const registerUserService = async ({nombre, email, password}) => {
 
   // crear usuario
   const user = await User.create({
-    nombre,
+    name,
     email,
     password: hashedPassword
   });
 
   return {
     id: user._id,
-    nombre: user.nombre,
+    name: user.name,
     email: user.email,
     role: user.role
   };
@@ -58,7 +58,7 @@ export const loginUserService = async ({ email, password }) => {
   return {
     user: {
       id: user._id,
-      nombre: user.nombre,
+      name: user.name,
       email: user.email,
       role: user.role
     },

@@ -1,18 +1,18 @@
 # ecommerce_project
 
-ACTUAL: Se verifico que todos los endpoints del flujo de pago funcionen correctamente.
+ACTUAL: Probar funcionamiento de las validaciones en el flujo de registro y login.
 
 ULTIMO PUNTO: 
 
-Incluye:
+Se hicieron las siguientes validaciones:
 
-POST "/api/payments/" (Crear pago)
-POST "/api/payments/confirm" (Confirmar pago)
-POST "/api/payments/fail/:paymentId" (Notificar pago como fallido)
+- Caso invalido (body vacio)
+- Caso parcialmente invalido (Uno o dos parametros invalidos)
+- Caso valido (Todos los parametros correctos)
 
 ERRORS:
 
-- "Payment validation failed: amount: Path `amount` is required."
+- Error de validación de entrada (Input Validation Error).
 
 FUNCIONALIDADES NUEVAS:
 
@@ -21,15 +21,12 @@ FUNCIONALIDADES NUEVAS:
 
 SIGUIENTE PASO:
 
+- Crear modulo product_validator.js
 
-Agregar estas validaciones con express-validator:
+- importar los modulos validate_middleware y product_validator a product_route
 
-- Auth
-- Category
-- Products
-- Cart
-- Orders
-- Payments
+- Verificar que las validaciones funcionen correctamente.
+
 
 
 

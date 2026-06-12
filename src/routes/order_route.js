@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { protect } from "../middlewares/jwt_protect.js";
-import { isUser } from "../middlewares/auth.js";
+import { protect } from "../middlewares/protect_middleware.js";
+import { isUser } from "../middlewares/auth_middleware.js";
 import { createOrderController } from "../controllers/order_controller.js";
 
 const router = Router();
