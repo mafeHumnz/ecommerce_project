@@ -1,14 +1,16 @@
 import { Router } from "express";
 import { protect } from "../middlewares/protect_middleware.js";
 import {isAdmin} from "../middlewares/auth_middleware.js";
+import { createProductValidator, updateProductValidator } from "../validators/product_validator.js";
+import { validateRequest } from "../middlewares/validate_middleware.js";
 import { createProductController, getProductsController, getProductByIdController, updateProductController, deleteProductController } from "../controllers/product_controller.js";
 
 const router = Router();
 
-router.post("/", protect, isAdmin, createProductController);
+router.post("/", protect, isAdmin, createProductValidator, validateRequest, createProductController);
 router.get("/", protect, getProductsController);
 router.get("/:id", protect, getProductByIdController);
-router.put("/:id", protect, isAdmin, updateProductController);
+router.put("/:id", protect, isAdmin, updateProductValidator, validateRequest, updateProductController);
 router.delete("/:id", protect, isAdmin, deleteProductController);
 
 export default router;
